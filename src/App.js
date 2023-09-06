@@ -1,5 +1,5 @@
 import logo from './assets/investment-calculator-logo.png';
-import React from 'react';
+
 function App() {
   const calculateHandler = (userInput) => {
     // Should be triggered when form is submitted
