@@ -6,23 +6,21 @@ import Header from "./Components/UI/Header";
 import Table from "./Components/UI/Table";
 
 function App() {
-  const [title_, setTitle] = useState("Header Title");
-  const [logo_, setLogo] = useState(logo);
-  const [yearlyData, setYearlyData] = useState([]);  
+  const [title_] = useState("Header Title");
+  const [logo_] = useState(logo);
+  const [yearlyData, setYearlyData] = useState([]);
+  const [initialInvestment, setInitialInvestment] = useState('');
+
   const calculateHandler = (userInput) => {
-    
-    // You might not directly want to bind it to the submit event on the form though...
+    setInitialInvestment(userInput.currentSavings);
     let currentSavings = +userInput.currentSavings; // + convert a variable to number if possible
     let yearlyContribution = +userInput.yearlySavings;
     const expectedReturn = +userInput.expectedInterest / 100;
     const duration = +userInput.investmentDuration;
 
     for (let i = 0; i < duration; i++) {
-      let totalSavings_, totalYearlyContribution_;
       const yearlyInterest = currentSavings * expectedReturn;
       currentSavings += yearlyInterest + yearlyContribution;
-      totalSavings_ = currentSavings++;
-      totalYearlyContribution_ = yearlyContribution++;
 
       const data = {
         id: Math.random().toString(),
@@ -30,14 +28,15 @@ function App() {
         yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
         yearlyContribution: yearlyContribution,
-        totalYearlyContribution: totalYearlyContribution_,
-        totalSavings: totalSavings_,
       };
+      
       setYearlyData((prevData) => {
-        return [data, ...prevData];
+        return[...prevData,data];
       });
-    }
-  };
+    };
+
+    console.log(yearlyData);
+  }
   
   const resetHandler = (val) => {
     if(val){
@@ -59,10 +58,10 @@ function App() {
             <th>Invested Capital</th>
           </tr>
         </thead>
-        <Investments myList={yearlyData}/>
+        <Investments myList={yearlyData} initialInvestment={initialInvestment}/>
       </Table>
     </div>
   );
-}
+};
 
 export default App;

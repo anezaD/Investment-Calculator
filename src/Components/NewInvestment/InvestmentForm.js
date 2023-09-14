@@ -6,7 +6,6 @@ const Form = (props) => {
   const [yearlySavings, setYearlySavings] = useState("");
   const [expectedInterest, setExpectedInterest] = useState("");
   const [investmentDuration, setInvestmentDuration] = useState("");
-  const [resetValue, setResetValue] = useState(false);
 
   const currentSavingsHandler = (event) => {
     setCurrentSavings(event.target.value);
